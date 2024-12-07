@@ -1,62 +1,32 @@
-<!--
-    Simple static Telegram WebApp. Does not verify the WebAppInitData, as a bot token would be needed for that.
--->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>python-telegram-bot Example WebApp</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<script type="text/javascript">
-    // Function to check if WebApp is initialized and get the inidata
-    function displayInidata() {
-        if (window.Telegram && window.Telegram.WebApp) {
-            const inidata = window.Telegram.WebApp.initData;
-            if (inidata) {
-                document.getElementById('inidata').textContent = JSON.stringify(inidata, null, 2);
-            } else {
-                document.getElementById('inidata').textContent = 'InitData is not available.';
-            }
-        } else {
-            document.getElementById('inidata').textContent = 'Telegram Web App is not initialized.';
-        }
-    }
+    <head>
+        <meta charset="UTF-8">
+        <title>python-telegram-bot Example WebApp</title>
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    </head>
+    <body>
+        <h1>Telegram Web App 3</h1>
+        <p>Displaying the initial data (inidata) from Telegram Web App:</p>
 
-    // Function to display the version
-    function displayVersion() {
-        const version = window.Telegram.WebApp.version;
-        if (version) {
-            document.getElementById('version').textContent = version;
-        } else {
-            document.getElementById('version').textContent = 'Version is not available.';
-        }
-    }
-    
-    // Wait for the WebApp to be ready
-    Telegram.WebApp.ready();
-    
-    // Additional fallback if the event isn't firing properly
-    if (window.Telegram.WebApp.isReady) {
-        displayInidata();
-        displayVersion();
-    } else {
-        document.getElementById('inidata').textContent = 'Web App not ready. Ensure this is running within Telegram.';
-        document.getElementById('version').textContent = 'Web App not ready. Ensure this is running within Telegram.';
-    }
+        <div id="inidata" class="inidata">Loading inidata...</div>
+        <div id="version" class="version">Loading version...</div>
+        
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        <script>
+        // Init TWA
+        Telegram.WebApp.ready();
 
-    Telegram.WebApp.close();
-</script>
-<body>
-    <h1>Telegram Web App 2</h1>
-    <p>Displaying the initial data (inidata) from Telegram Web App:</p>
+        // Show main button
+        Telegram.WebApp.MainButton.setParams({
+            text: 'Main Button'
+        });
 
-    <div id="inidata" class="inidata">
-        Loading inidata...
-    </div>
-    <div id="version" class="version">
-        ???
-    </div>  
+        Telegram.WebApp.MainButton.onClick(function () {
+            Telegram.WebApp.showAlert('Main Button was clicked')
+        });	
+        Telegram.WebApp.MainButton.show();
+    </script>
 </body>
 </html>
 
