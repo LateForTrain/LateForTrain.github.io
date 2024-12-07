@@ -32,11 +32,30 @@
     // Initialize Telegram Web App
     window.Telegram.WebApp.init();
 
-    // Fetch the inidata and display it
-    window.Telegram.WebApp.onEvent('onInit', () => {
-      const inidata = window.Telegram.WebApp.initData;
-      document.getElementById('inidata').textContent = JSON.stringify(inidata, null, 2);
-    });
+    // Function to check if WebApp is initialized and get the inidata
+    function displayInidata() {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const inidata = window.Telegram.WebApp.initData;
+        if (inidata) {
+          document.getElementById('inidata').textContent = JSON.stringify(inidata, null, 2);
+        } else {
+          document.getElementById('inidata').textContent = 'InitData is not available.';
+        }
+      } else {
+        document.getElementById('inidata').textContent = 'Telegram Web App is not initialized.';
+      }
+    }
+
+    // Wait for Telegram Web App initialization
+    window.Telegram.WebApp.onEvent('onInit', displayInidata);
+    
+    // Additional fallback if the event isn't firing properly
+    if (window.Telegram.WebApp.isReady) {
+      displayInidata();
+    } else {
+      // Handle the scenario where the Web App is not loaded properly
+      document.getElementById('inidata').textContent = 'Web App not ready. Ensure this is running within Telegram.';
+    }
   </script>
 
 </body>
