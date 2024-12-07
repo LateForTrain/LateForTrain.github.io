@@ -37,6 +37,17 @@
                     });
     
                     Telegram.WebApp.MainButton.show();
+
+                    // Configure Back Button
+                    Telegram.WebApp.BackButton.setParams({
+                        text: 'Cancel',
+                    });
+    
+                    Telegram.WebApp.BackButton.onClick(function () {
+                        Telegram.WebApp.close();
+                    });
+    
+                    Telegram.WebApp.BackButton.show();
                 } else {
                     console.error("Telegram WebApp object not available.");
                     document.getElementById("inidata").textContent = "Error: Telegram WebApp not available.";
