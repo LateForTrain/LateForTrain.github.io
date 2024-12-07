@@ -21,9 +21,16 @@
 
     Telegram.WebApp.ready();
     Telegram.WebApp.MainButton.setText('Choose Color').show().onClick(function () {
-        const data = JSON.stringify({hex: colorPicker.color.hexString, rgb: colorPicker.color.rgb});
-        Telegram.WebApp.sendData(data);
-        Telegram.WebApp.close();
+    const data = JSON.stringify({
+        hex: colorPicker.color.hexString,
+        rgb: {
+            r: colorPicker.color.rgb.r,
+            g: colorPicker.color.rgb.g,
+            b: colorPicker.color.rgb.b
+        }
+    });
+    Telegram.WebApp.sendData(data);  // Sends data to the bot
+    Telegram.WebApp.close();  // Closes the web app
     });
 </script>
 <body style="background-color: #ffffff">
